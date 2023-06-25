@@ -1,21 +1,26 @@
-.contactsList {
+import styled from '@emotion/styled';
+import { FaTrash } from 'react-icons/fa';
+export const List = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-.contact {
+`;
+
+export const Item = styled.li`
   display: flex;
   gap: 10px;
   align-items: center;
   margin: 0px;
-}
-.contactName {
+`;
+
+export const ContactName = styled.p`
   margin: 0px;
-}
-.deleteButton {
+`;
+
+export const DeleteButton = styled.button`
   display: inline-block;
   display: flex;
   align-items: center;
@@ -26,12 +31,13 @@
   cursor: pointer;
   border: none;
   outline: none;
-}
-.deleteIcon {
+`;
+
+export const DeleteIcon = styled(FaTrash)`
   width: 15px;
   height: 15px;
-}
-.deleteIcon:hover,
-.deleteIcon:focus {
-  color: lightskyblue;
-}
+  &:hover,
+  &:focus {
+    color: lightskyblue;
+  }
+`;

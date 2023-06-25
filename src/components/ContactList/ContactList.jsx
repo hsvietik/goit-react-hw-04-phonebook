@@ -1,27 +1,28 @@
 import PropTypes from 'prop-types';
-import css from './ContactList.module.css';
-import { FaTrash } from 'react-icons/fa';
+import {
+  List,
+  Item,
+  ContactName,
+  DeleteButton,
+  DeleteIcon,
+} from './ContactList.styled';
 
 export const ContactList = ({ contacts, deleteContact }) => {
   return (
-    <ul className={css.contactsList}>
+    <List>
       {contacts.map(({ id, name, number }) => {
         return (
-          <li key={id} className={css.contact}>
-            <p className={css.contactName}>
+          <Item key={id}>
+            <ContactName>
               {name}: {number}
-            </p>
-            <button
-              className={css.deleteButton}
-              type="button"
-              onClick={() => deleteContact(id)}
-            >
-              <FaTrash className={css.deleteIcon} />
-            </button>
-          </li>
+            </ContactName>
+            <DeleteButton type="button" onClick={() => deleteContact(id)}>
+              <DeleteIcon />
+            </DeleteButton>
+          </Item>
         );
       })}
-    </ul>
+    </List>
   );
 };
 ContactList.propTypes = {

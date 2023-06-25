@@ -1,8 +1,8 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
-import css from './ContactForm.module.css';
+import { StyledForm, StyledInput, FormButton } from './ContactForm.styled.jsx';
 
 const initialValues = { name: '', number: '' };
 
@@ -35,27 +35,15 @@ export function ContactForm({ addContact }) {
       onSubmit={handleSubmit}
       validationSchema={schema}
     >
-      <Form className={css.contactForm}>
+      <StyledForm>
         <label htmlFor="name">Name</label>
-        <Field
-          className={css.contactFormInput}
-          type="text"
-          name="name"
-          id="name"
-        />
+        <StyledInput type="text" name="name" id="name" />
         <ErrorMessage name="name" />
         <label htmlFor="number">Number</label>
-        <Field
-          className={css.contactFormInput}
-          type="tel"
-          name="number"
-          id="number"
-        />
+        <StyledInput type="tel" name="number" id="number" />
         <ErrorMessage name="number" />
-        <button className={css.contactFormButton} type="submit">
-          Add contact
-        </button>
-      </Form>
+        <FormButton type="submit">Add contact</FormButton>
+      </StyledForm>
     </Formik>
   );
 }

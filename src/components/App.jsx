@@ -5,7 +5,7 @@ import Notiflix from 'notiflix';
 import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
-import css from './App.module.css';
+import { Container } from './App.styled';
 
 export function App() {
   const [contacts, setContacts] = useState(() => {
@@ -44,12 +44,12 @@ export function App() {
   );
 
   return (
-    <div className={css.container}>
+    <Container>
       <h1>Phonebook</h1>
       <ContactForm addContact={addContact} />
       <h2>Contacts</h2>
       <Filter onChange={changeFilter} />
       <ContactList contacts={filteredContacts} deleteContact={deleteContact} />
-    </div>
+    </Container>
   );
 }

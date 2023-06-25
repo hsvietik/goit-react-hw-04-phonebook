@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types';
-import css from './Filter.module.css';
+import { SearchForm, SearchInput } from './Filter.styled';
 
 export const Filter = ({ onChange }) => {
   return (
-    <div className={css.nameSearchForm}>
+    <SearchForm>
       <p>Find contacts by name</p>
-      <input
+      <SearchInput
         name="search"
-        className={css.nameSearchInput}
         type="text"
         onChange={evt => onChange(evt.currentTarget.value)}
       />
-    </div>
+    </SearchForm>
   );
 };
 Filter.propTypes = { onChange: PropTypes.func.isRequired };
