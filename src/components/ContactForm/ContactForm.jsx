@@ -1,50 +1,61 @@
 import React from 'react';
-import { Formik, ErrorMessage } from 'formik';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
-import { StyledForm, StyledInput, FormButton } from './ContactForm.styled.jsx';
+import {
+  StyledForm,
+  StyledInput,
+  FormButton,
+  ErrorMessage,
+} from './ContactForm.styled.jsx';
 
-const initialValues = { name: '', number: '' };
-
-const schema = yup.object().shape({
-  name: yup
-    .string()
-    .matches(
-      /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
-      "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-    )
-    .required(),
-  number: yup
-    .string()
-    .matches(
-      /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
-      'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
-    )
-    .required(),
-});
+const schema = yup
+  .object()
+  .shape({
+    name: yup
+      .string()
+      .matches(
+        /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
+        "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+      )
+      .required('Name is required'),
+    number: yup
+      .string()
+      .matches(
+        /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
+        'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
+      )
+      .required('Number is required'),
+  })
+  .required();
 
 export function ContactForm({ addContact }) {
-  const handleSubmit = ({ name, number }, { resetForm }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: { name: '', number: '' },
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = ({ name, number }) => {
     addContact(name, number);
-    resetForm();
+    reset();
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={schema}
-    >
-      <StyledForm>
-        <label htmlFor="name">Name</label>
-        <StyledInput type="text" name="name" id="name" />
-        <ErrorMessage name="name" />
-        <label htmlFor="number">Number</label>
-        <StyledInput type="tel" name="number" id="number" />
-        <ErrorMessage name="number" />
-        <FormButton type="submit">Add contact</FormButton>
-      </StyledForm>
-    </Formik>
+    <StyledForm onSubmit={handleSubmit(onSubmit)}>
+      <label htmlFor="name">Name</label>
+      <StyledInput {...register('name')} type="text" id="name" />
+      <ErrorMessage>{errors.name?.message}</ErrorMessage>
+      <label htmlFor="number">Number</label>
+      <StyledInput {...register('number')} type="tel" id="number" />
+      <ErrorMessage>{errors.number?.message}</ErrorMessage>
+      <FormButton type="submit">Add contact</FormButton>
+    </StyledForm>
   );
 }
 

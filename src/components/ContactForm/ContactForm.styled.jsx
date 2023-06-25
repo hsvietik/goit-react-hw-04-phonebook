@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { Form, Field } from 'formik';
-export const StyledForm = styled(Form)`
+
+export const StyledForm = styled.form`
   width: 300px;
   display: inline-flex;
   flex-direction: column;
@@ -10,7 +10,7 @@ export const StyledForm = styled(Form)`
   background-color: lightyellow;
 `;
 
-export const StyledInput = styled(Field)`
+export const StyledInput = styled.input`
   padding: 10px;
   border-radius: 6px;
   &:focus,
@@ -27,4 +27,8 @@ export const FormButton = styled.button`
   &:hover {
     background-color: lightskyblue;
   }
+`;
+export const ErrorMessage = styled.p`
+  margin: 0px;
+  padding: 0px;
 `;
